@@ -4,7 +4,7 @@ package com.jason.util.excel;
  * 表头参数
  * @author Jason
  */
-public class HeadParam {
+public class HeadContent {
 
 	/**
 	 * 名称
@@ -26,11 +26,11 @@ public class HeadParam {
 	 */
 	private int column;
 
-	public HeadParam(String name, int width){
+	public HeadContent(String name, int width){
 		this(name , width , 1 , 1);
 	}
 	
-	public HeadParam(String name, int width, int rowspan, int column) {
+	public HeadContent(String name, int width, int rowspan, int column) {
 		super();
 		this.name = name;
 		this.width = width;

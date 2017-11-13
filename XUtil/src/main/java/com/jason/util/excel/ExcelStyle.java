@@ -9,12 +9,12 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
  * 样式参数
  * @author Jason
  */
-public class StyleParam {
+public class ExcelStyle {
 
 	/**
 	 * 表头样式
 	 */
-	private List<HeadParam> headParamList;
+	private List<HeadContent> headList;
 	
 	/**
 	 * workbook
@@ -31,12 +31,12 @@ public class StyleParam {
 	 */
 	private HSSFCellStyle bodyCellStyle;
 
-	public List<HeadParam> getHeadParamList() {
-		return headParamList;
+	public List<HeadContent> getHeadList() {
+		return headList;
 	}
 
-	public void setHeadParamList(List<HeadParam> headParamList) {
-		this.headParamList = headParamList;
+	public void setHeadList(List<HeadContent> headList) {
+		this.headList = headList;
 	}
 
 	public HSSFWorkbook getWorkbook() {
@@ -51,16 +51,13 @@ public class StyleParam {
 		return headCellStyle;
 	}
 	
-
 	public void setHeadCellStyle(HSSFCellStyle headCellStyle) {
 		this.headCellStyle = headCellStyle;
 	}
-	
 
 	public HSSFCellStyle getBodyCellStyle() {
 		return bodyCellStyle;
 	}
-	
 
 	public void setBodyCellStyle(HSSFCellStyle bodyCellStyle) {
 		this.bodyCellStyle = bodyCellStyle;

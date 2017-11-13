@@ -24,16 +24,16 @@ public class ExcelFactory {
 	 * @param strList
 	 * @return
 	 */
-	public static HSSFWorkbook getHSSFWorkbook(List<String> strList , StyleParam styleParam){
-		HSSFWorkbook workbook = styleParam.getWorkbook();
+	public static HSSFWorkbook getHSSFWorkbook(List<String> strList , ExcelStyle style){
+		HSSFWorkbook workbook = style.getWorkbook();
 		//生成表头
-		HSSFCellStyle headCellStyle = styleParam.getHeadCellStyle();
-		List<HeadParam> headParamList = styleParam.getHeadParamList();
+		HSSFCellStyle headCellStyle = style.getHeadCellStyle();
+		List<HeadContent> headList = style.getHeadList();
 		HSSFSheet sheet = workbook.createSheet();
-		generateHead(headCellStyle, sheet, headParamList);
+		generateHead(headCellStyle, sheet, headList);
 		//生成表格		
 		HSSFSheet bodySheet = workbook.getSheetAt(0);
-		HSSFCellStyle bodyCellStyle = styleParam.getBodyCellStyle();
+		HSSFCellStyle bodyCellStyle = style.getBodyCellStyle();
 		generateBody(bodyCellStyle , bodySheet , strList);
 		return workbook;
 	}
@@ -44,20 +44,20 @@ public class ExcelFactory {
 	 * @author Jason
 	 * @param headCellStyle
 	 * @param sheet
-	 * @param headParamList
+	 * @param headContentList
 	 */
-	private static void generateHead(HSSFCellStyle headCellStyle,HSSFSheet sheet,List<HeadParam> headParamList) {
+	private static void generateHead(HSSFCellStyle headCellStyle,HSSFSheet sheet,List<HeadContent> headContentList) {
 		HSSFRow row = sheet.createRow(0);
 		int cellNum = 0;
-		for (int i = 0 ; i < headParamList.size() ; i++) {
-			HeadParam hParam = headParamList.get(i);
-			sheet.setColumnWidth(i , (hParam.getWidth() * 20));
+		for (int i = 0 ; i < headContentList.size() ; i++) {
+			HeadContent headContent = headContentList.get(i);
+			sheet.setColumnWidth(i , (headContent.getWidth() * 20));
 			HSSFCell cell = row.createCell(cellNum);
 			cell.setCellType(XSSFCell.CELL_TYPE_STRING);
 			cell.setCellStyle(headCellStyle);
-			sheet.addMergedRegion(new CellRangeAddress(0, hParam.getRowspan() - 1,cellNum, cellNum + hParam.getColumn() - 1));
-			cell.setCellValue(hParam.getName());
-			cellNum = cellNum + hParam.getColumn();
+			sheet.addMergedRegion(new CellRangeAddress(0, headContent.getRowspan() - 1,cellNum, cellNum + headContent.getColumn() - 1));
+			cell.setCellValue(headContent.getName());
+			cellNum = cellNum + headContent.getColumn();
 		}
 		cellNum = 1;
 	}

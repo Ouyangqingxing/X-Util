@@ -11,8 +11,8 @@ import org.apache.poi.ss.usermodel.Font;
 import com.jason.util.excel.DataFormatConverter;
 import com.jason.util.excel.ExcelDownloader;
 import com.jason.util.excel.ExcelFactory;
-import com.jason.util.excel.HeadParam;
-import com.jason.util.excel.StyleParam;
+import com.jason.util.excel.HeadContent;
+import com.jason.util.excel.ExcelStyle;
 
 /**
  * Excel测试类
@@ -33,8 +33,8 @@ public class ExcelUtilTest {
 		List<Object> objList = getData();
 		List<String> strList = DataFormatConverter.formateData(objList);
 		//2.设置所需样式，获取Excel(workbook)
-		StyleParam sParam = getStyle();
-		HSSFWorkbook workbook = ExcelFactory.getHSSFWorkbook(strList,sParam);
+		ExcelStyle style = getStyle();
+		HSSFWorkbook workbook = ExcelFactory.getHSSFWorkbook(strList,style);
 		//3.下载Excel
 		String filePath = "C:\\Users\\Administrator\\Desktop\\test.xls";
 		ExcelDownloader.localDownload(filePath , workbook);
@@ -76,16 +76,16 @@ public class ExcelUtilTest {
 	 * @author Jason
 	 * @return
 	 */
-	public static StyleParam getStyle(){
-		StyleParam sParam = new StyleParam();
+	public static ExcelStyle getStyle(){
+		ExcelStyle style = new ExcelStyle();
 		//设置表头内容及格式
-		List<HeadParam> headParamList = new ArrayList<HeadParam>();
-		HeadParam num = new HeadParam("编号",100);
-		HeadParam name = new HeadParam("姓名",300);
-		HeadParam age = new HeadParam("年龄",300);
-		headParamList.add(num);
-		headParamList.add(name);
-		headParamList.add(age);
+		List<HeadContent> headcontent = new ArrayList<HeadContent>();
+		HeadContent num = new HeadContent("编号",100);
+		HeadContent name = new HeadContent("姓名",300);
+		HeadContent age = new HeadContent("年龄",300);
+		headcontent.add(num);
+		headcontent.add(name);
+		headcontent.add(age);
 		//设置表头样式
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		HSSFCellStyle headCellStyle = workbook.createCellStyle();
@@ -102,11 +102,11 @@ public class ExcelUtilTest {
 		bodyCellStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
 		bodyCellStyle.setWrapText(true);
 		
-		sParam.setWorkbook(workbook);
-		sParam.setHeadParamList(headParamList);
-		sParam.setHeadCellStyle(headCellStyle);
-		sParam.setBodyCellStyle(bodyCellStyle);
-		return sParam;
+		style.setWorkbook(workbook);
+		style.setHeadList(headcontent);
+		style.setHeadCellStyle(headCellStyle);
+		style.setBodyCellStyle(bodyCellStyle);
+		return style;
 	}
 	
 }
